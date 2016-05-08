@@ -11,7 +11,7 @@
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	<%= csrf_meta_tags %>
 </head>
-<body>
+<body onload="initialize(<%= @questions.to_json %>)">
 	<nav class="navbar navbar-default ">
 		<div class="container-fluid">
 		<div class="navbar-header">
@@ -24,13 +24,14 @@
 	<div class="container">
 	<div class="panel panel-default" style="margin-top:10%; margin-left:20%; margin-right:20%; padding:20px">
 		<div class="btn-group pull-right dropup">
-		<button class="pull-right btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span id="dd">Select Subject </span><span class="caret"></span></button>
+		<button tyle="padding:5px" class="pull-right btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		<span id="dd" s>Select Subject </span><span class="caret"></span></button>
 		<ul class="dropdown-menu">
 			<li><a href="#" onclick="pickmath()">Math</a></li>
 			<li><a href="#" onclick="pickscience()">Science</a></li>
   		</ul>
 		</div>
-		<p class=><strong>Question: </strong><span id="question">What subject?</p>
+		<p class=><strong>Question: </strong><span id="question"></span></p>
 
 		<span>
 			<label for="inputdefault">Answer:</label>
@@ -48,6 +49,8 @@
 					<div id="correct" class="alert alert-success" role="alert" style="display:none">Correct!</div>
 					<div id="wrong" class="alert alert-danger" role="alert" style="display:none">Incorrect. Try Again...</div>
 					<span><button id="next" class="btn btn-primary btn-sm" style="display:none"onclick="next()">Next Question</button></span>
+					<span><button id="skip" class="btn btn-primary btn-sm" onclick="skip()">Skip...</button></span>
+					<span><button onclick="cheat()" class="btn btn-primary btn-sm">Show Answer</button> <span id="cheat" style="display:none"></span></span>
 				</p>	
 			</div>	
 		</span>
