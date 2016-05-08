@@ -12,7 +12,7 @@ function processInput() {
         var text = document.getElementById("input").value;
         if(init == false){
             //init = true; 
-            window.alert("WTF?")
+            //window.alert("WTF?")
             if("math" == text.toLowerCase())
                 pickmath();
             else if("science" == text.toLowerCase())
