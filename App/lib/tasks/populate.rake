@@ -46,7 +46,7 @@ def get_topic(p)
 			temp["topic_n"] = tn
 			temp["sc_id"] = s.id
 			hashes << temp
-		end
+		end	
 	end
 	Topic.create(hashes)
 end
@@ -96,12 +96,43 @@ namespace :populate do
 		get_topic(p)
 	end
 
-	desc 'import question from arithmetic'
-	task :import_question => :environment do
+	desc 'import questions from arithmetic'
+	task :import_questions => :environment do
 		file = File.read("arithmetic.json")
 		hash = JSON.parse(file)
 
+		hashes = []
+		temp = {}
 		p = hash["problems"]
-		get_question(p)
+
+		p.each do |k, v|
+			temp["ask"] = k["question"]
+			# puts temp["ask"]
+			temp["correct_answer"] = k["answer"]
+			temp["category"] = k["category_id"]
+			temp["sub_category"] = k["sub_cat_id"]
+			temp["topic"] = k["topic_id"]
+			temp["correct"] = false
+			# hashes << temp
+			Question.create(temp)
+		end
+	end
+
+	desc 'import squestions from science'
+	task :import_squestions => :environment do
+		file = File.read("science.json")
+		hash = JSON.parse(file)
+
+		hashes = []
+		temp = {}
+
+		hash.each do |k, v|
+			temp["ask"] = k["question"]
+			# puts temp["ask"]
+			temp["correct_answer"] = k["answer"]
+			temp["correct"] = false
+			hashes << temp
+			Question.create(hashes)
+		end
 	end
 end #namespace
