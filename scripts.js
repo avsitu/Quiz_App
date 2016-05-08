@@ -20,44 +20,33 @@ $(document).ready(function(){
 });
 
 function processInput() {
-    if(init == true) {
-        pick();
-        
-    }
-    else {
         var text = document.getElementById("input").value;
         if(obj[i].answer == text.toLowerCase()) {
-            document.getElementById("output").innerHTML = "Correct! ";
+            document.getElementById("wrong").style.display = "none";
+            document.getElementById("correct").style.display = "block"; 
             document.getElementById("next").style.display = "inline";
             i++;
             i %= 2;
             correct = true;
         }
         else
-            document.getElementById("output").innerHTML = "Try Again...";
-    }
+            document.getElementById("wrong").style.display = "block";
 }
-function pick() {
-    var text = document.getElementById("input").value;
-    if(text.toLowerCase() == "math") {
-        init = false;
-        obj = math;	
-        next();	
-    }
-    else if(text.toLowerCase() == "science") {
-        init = false;
-        obj = science;
-        next();
-    }
-    else {
-        document.getElementById("output").innerHTML = "Invalid Subject."
-    }
+function pickmath() {
+    document.getElementById("dd").innerHTML = "Math ";
+    obj = math;
+    next();
+}
+function pickscience() {
+    document.getElementById("dd").innerHTML = "Science ";
+    obj = science;
+    next();
 }
 function next() {
     //i++;
     correct = false;
-    document.getElementById("output").innerHTML = "";
     document.getElementById("input").value = "";
     document.getElementById("question").innerHTML = obj[i].question;
     document.getElementById("next").style.display = "none";
+    document.getElementById("correct").style.display = "none"; 
 }

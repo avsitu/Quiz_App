@@ -17,12 +17,24 @@
 			</div>
 		</div>	
 	</nav>
+	
+
+	
 	<div class="container">
 	<div class="panel panel-default" style="margin-top:10%; margin-left:20%; margin-right:20%; padding:20px">
-		<p><strong>Question: </strong><span id="question"></p>
+		<div class="btn-group pull-right dropup">
+		<button class="pull-right btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span id="dd">Select Subject </span><span class="caret"></span></button>
+		<ul class="dropdown-menu">
+			<li><a href="#" onclick="pickmath()">Math</a></li>
+			<li><a href="#" onclick="pickscience()">Science</a></li>
+  		</ul>
+		</div>
+		<p class=><strong>Question: </strong><span id="question"></p>
+
 		<span>
 			<label for="inputdefault">Answer:</label>
 		</span>
+
 		<div class="input-group"">
 			<input class="form-control" id="input" placeholder="Your Answer">
 			<span class="input-group-btn">
@@ -30,11 +42,14 @@
 			</span>
 		</div><!-- /input-group -->
 		<span>
-			<p></p>
 			<div>
-				<p><strong>Result: </strong><span id="output"></span><span><button id="next" class="btn btn-primary btn-sm" style="display:none"onclick="next()">Next Question</button></span></p>	
+				<p style="padding-top:10px"><div id="correct" class="alert alert-success" role="alert" style="display:none">Correct!</div>
+					<div id="wrong" class="alert alert-danger" role="alert" style="display:none">Incorrect. Try Again...</div>
+					<span><button id="next" class="btn btn-primary btn-sm" style="display:none"onclick="next()">Next Question</button></span>
+				</p>	
 			</div>	
 		</span>
+		
 	</div>
 	</div>
 	
