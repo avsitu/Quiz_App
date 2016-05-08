@@ -1,0 +1,9 @@
+.navbar-header {
+	padding-top:12px;
+    text-align: center;
+    width: 100%;
+}
+
+.navbar-brand {
+	float: none;
+}
