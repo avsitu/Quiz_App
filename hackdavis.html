@@ -17,8 +17,8 @@
 			</div>
 		</div>	
 	</nav>
-
-	<div class="panel panel-default" style="margin-left:20%; margin-right:20%; padding:20px">
+	<div class="container">
+	<div class="panel panel-default" style="margin-top:10%; margin-left:20%; margin-right:20%; padding:20px">
 		<p><strong>Question: </strong><span id="question"></p>
 		<span>
 			<label for="inputdefault">Answer:</label>
@@ -26,7 +26,7 @@
 		<div class="input-group"">
 			<input class="form-control" id="input" placeholder="Your Answer">
 			<span class="input-group-btn">
-				<button class="btn btn-primary" onclick="processInput()">Submit</button>
+				<button id="submit" class="btn btn-primary" onclick="processInput()">Submit</button>
 			</span>
 		</div><!-- /input-group -->
 		<span>
@@ -36,9 +36,15 @@
 			</div>	
 		</span>
 	</div>
+	</div>
 	
 	<div class="footer">
-	
+		<div class="container text-muted">
+			<div class="row text-center text-muted">
+  			<div class="col-md-6">Last Updated: May 2016</div>
+  			<div class="col-md-6">Team JAAAA</div>
+		</div>
+		</div>
 	</div>
     <script src="scripts.js"></script>
 	

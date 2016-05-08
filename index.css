@@ -7,3 +7,26 @@
 .navbar-brand {
 	float: none;
 }
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 50px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 50px;
+  background-color: #f5f5f5;
+  border: 1px solid #E7E7E7;
+  border-radius: 1px;
+}
+
+.container .text-muted {
+	margin: 15px 0;
+}
