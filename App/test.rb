@@ -5,11 +5,13 @@ hash = JSON.parse(file)
 
 p = hash["problems"]
 
+temp = []
 i = 0
 p.each do |k, v|
-	if i == 3
-		break
+	name = k['topic_id']
+	if(!temp.include?(name))
+		temp << name
 	end
-	puts k['question']
-	i += 1
 end
+
+puts temp
