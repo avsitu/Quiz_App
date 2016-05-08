@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id:</strong>
+  <%= @question.id %>
+</p>
+
+<p>
+  <strong>Answer:</strong>
+  <%= @question.answer %>
+</p>
+
+<p>
+  <strong>A:</strong>
+  <%= @question.a %>
+</p>
+
+<p>
+  <strong>B:</strong>
+  <%= @question.b %>
+</p>
+
+<p>
+  <strong>C:</strong>
+  <%= @question.c %>
+</p>
+
+<p>
+  <strong>D:</strong>
+  <%= @question.d %>
+</p>
+
+<p>
+  <strong>Correct answer:</strong>
+  <%= @question.correct_answer %>
+</p>
+
+<p>
+  <strong>Correct:</strong>
+  <%= @question.correct %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @question.category_id %>
+</p>
+
+<p>
+  <strong>Sub cat:</strong>
+  <%= @question.sub_cat_id %>
+</p>
+
+<%= link_to 'Edit', edit_question_path(@question) %> |
+<%= link_to 'Back', questions_path %>
