@@ -1,4 +1,6 @@
 var i = 0, init = false, correct = false;
+var mobj;
+var sobj;
 var obj;
 var math = [{question:"What is 1+1?", answer:"2"},
             {question:"What is 2*2?", answer:"4"}];
@@ -6,9 +8,11 @@ var science = [{question:"What is Newton's second law?", answer:"f=ma"},
                 {question:"What is life?", answer:"ball is life"}];
                 
 //document.getElementById("question").innerHTML = "What subject?";
-function initialize(arr) {
-    obj = arr;
-    document.getElementById("question").innerHTML = obj[i].ask;
+function initialize(marr, sarr) {
+    mobj = marr;
+    sobj = sarr;
+    document.getElementById("question").innerHTML = "Choose subject.";
+
 }
 //enter instead of click for input
 function skip() {
@@ -49,13 +53,15 @@ function processInput() {
 function pickmath() {
     init = true;
     document.getElementById("dd").innerHTML = "Math ";
-    obj = math;
+    obj = mobj;
+    //document.myform.subject.value = "Math";
     next();
 }
 function pickscience() {
     init = true;
     document.getElementById("dd").innerHTML = "Science ";
-    obj = science;
+    obj = sobj;
+    //document.myform.subject.value = "Science";
     next();
 }
 function next() {

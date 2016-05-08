@@ -131,7 +131,8 @@ namespace :populate do
 			# puts temp["ask"]
 			temp["correct_answer"] = k["answer"]
 			temp["correct"] = false
-			#hashes << temp
+			temp["category"] = "science"
+			# hashes << temp
 			Question.create(temp)
 		end
 	end

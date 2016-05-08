@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>The App</title>
+	<title>Quiz.sh</title>
 	<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -11,16 +11,21 @@
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	<%= csrf_meta_tags %>
 </head>
-<body onload="initialize(<%= @questions.to_json %>)">
+<body onload="initialize(<%= @mquestions.to_json %>, <%= @squestions.to_json %>)">
 	<nav class="navbar navbar-default ">
 		<div class="container-fluid">
 		<div class="navbar-header">
 			<div class="navbar-justified">
-				<a class="navbar-brand" href="#">The App</a>
+				<a class="navbar-brand" href="#">Quiz.sh</a>
 			</div>
 		</div>	
 	</nav>
-	
+<!-- 	<form name="myform" style="">
+		<input id ="subject" onchange="initialize(<%= @questions.to_json %>)" name="subject" value="">
+	</form>
+	<pre>
+		<%= @cat.inspect %>
+	</pre> -->
 	<div class="container">
 	<div class="panel panel-default" style="margin-top:10%; margin-left:20%; margin-right:20%; padding:20px">
 		<div class="btn-group pull-right dropup">
