@@ -3,16 +3,18 @@ import argparse
 import logging
 import requests
 import re
-from os.path import join, dirname
+import time
+
 from watson_developer_cloud import ConceptInsightsV2 as ConceptInsights
 from watson_developer_cloud import AlchemyLanguageV1
 
 class WatsonAPI(object):
 
-	BASE_URL = 'https://watson-api-explorer.mybluemix.net/concept-insights/api/v2/'
+	BASE_URL = 'https://watson-api-explorer.mybluemix.net/concept-insights/api/v2'
 	contents = []
 	questions = []
 	answers = []
+	json = []
 
 	def __init__(self, APIKEY, username, password, query):
 		self.APIKEY = APIKEY
@@ -20,7 +22,11 @@ class WatsonAPI(object):
 		self.password = password
 		self.query = query
 
-	def GetUrls(self):
+	def GenerateQuestionsAnswerPairs(self):
+
+		time.sleep(4)
+
+		pat = re.compile(r'([A-Z][^\.!?]*[\.!?])', re.M)
 
 		concept_insights = ConceptInsights(
 	  username=self.username,
@@ -28,41 +34,20 @@ class WatsonAPI(object):
 		logging.info('Username and password validated')
 
 		annotations = concept_insights.annotate_text(self.query)
-		for index, annotation in enumerate(annotations['annotations']):
+		for annotation in annotations['annotations']:
 			r = requests.get("{0}/{1}".format(self.BASE_URL, annotation['concept']['id']))
-			url = r.json()['link']
-			logging.debug('Found url - {0}'.format(url))
-
-			yield url
-
-	def GetContentsFromUrls(self,url):
-
-		alchemy_language = AlchemyLanguageV1(api_key=self.APIKEY)
-		logging.info('API key validated')
-		content = json.dumps(alchemy_language.relations(url=url), indent=2)
-		logging.debug('Yielding content from url')
-		logging.debug(content)
-		self.contents.append(content)
+			regex_result = pat.findall(r.json()['abstract'])
+			for sentence in regex_result:
+				if sentence.startswith(r.json()['label']):
+					self.questions.append(sentence.replace(r.json()['label'],'_'*len(r.json()['label'])))
+					self.answers.append(r.json()['label'])
+					logging.info('Made a question from: {0}'.format(sentence))
 
 
-	def GenerateQuestionAnswerPairs(self):
-
-		pat = re.compile(r'([A-Z][^\.!?]*[\.!?])', re.M)
-
-		for content in self.contents:
-			json_content = json.loads(content)
-			for relation in json_content['relations']:
-				counter = 0
-				answer = relation['subject']['text'] 
-				all_sentences = pat.findall(relation['sentence'])
-				for sentence in all_sentences:
-					if sentence not in self.questions:
-						self.questions.append(sentence.replace(answer,'____'))
-						logging.debug('question appended to list: {0}'.format(sentence))
-						counter += 1
-				for i in range(0,counter):
-					self.answers.append(answer)
-					logging.debug('answer appended to list: {0}'.format(answer))
+	def ConvertListToJson(self, category_id):
+		self.json = json.dumps([{'question': question, 'id': None, 'answer': answer,
+		'category_id': category_id, 'sub_cat_id': None, 'topic_id': None} 
+		for question,answer in zip(self.questions, self.answers)])
 
 
 def parse_args():
@@ -77,10 +62,7 @@ def parse_args():
     opts = parser.parse_args()
     return opts
 
-class DatabaseStuff():
-	pass
-
-def main():
+def main(save):
 	
 	opts = parse_args()
 
@@ -90,12 +72,12 @@ def main():
 		logging.basicConfig(level=logging.INFO)
 
 	watson_api = WatsonAPI(opts.APIKEY, opts.username, opts.password, opts.query)
+	watson_api.GenerateQuestionsAnswerPairs()
+	watson_api.ConvertListToJson(2)
 
-	for url in watson_api.GetUrls():
-		watson_api.GetContentsFromUrls(url)
+	if save:
+		with open('output.json','a') as fp:
+			fp.write(watson_api.json)
 
-	watson_api.GenerateQuestionAnswerPairs()
-	print(watson_api.questions[0])
-	
 if __name__ == "__main__":
- 	main()
+ 	main(True)
