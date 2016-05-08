@@ -14,7 +14,7 @@ function processInput() {
     else {
         var text = document.getElementById("input").value;
         if(obj[i].answer == text.toLowerCase()) {
-            document.getElementById("output").innerHTML = "Correct!";
+            document.getElementById("output").innerHTML = "Correct! ";
             document.getElementById("next").style.display = "inline";
             i++;
         }
